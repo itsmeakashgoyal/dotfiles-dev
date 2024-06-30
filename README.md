@@ -30,15 +30,15 @@ By using these scripts, you acknowledge and accept the risk of potential data lo
 
 1. Clone the repository to your local machine:
    ```sh
-   git clone https://github.com/itsmeakashgoyal/dotfiles-dev.git ~/dotfiles
+   git clone https://github.com/itsmeakashgoyal/dotfiles-dev.git ~/dotfiles-dev
    ```
-2. Navigate to the `dotfiles` directory:
+2. Navigate to the `dotfiles-dev` directory:
    ```sh
-   cd ~/dotfiles
+   cd ~/dotfiles-dev
    ```
 3. Run the installation script:
    ```sh
-   ./install.sh
+   ./setup.sh
    ```
 
 This script will:
@@ -50,20 +50,23 @@ This script will:
 
 ## Configuration Files
 
-- `.bashrc` & `.zshrc`: Shell configuration files for Bash and Zsh.
-- `.bash_profile`: Setting system-wide environment variables
-- `.aliases`: Aliases for common commands. Some are personalized to my machines specifically.
-- `.exports`: Exports for packages path.
-- `.functions`: Common useful functions.
-- `.private`: This is a file you'll create locally to hold private information and shouldn't be uploaded to version control
+
+
 - `settings/`: Directory containing editor settings and themes for Sublime Text, Visual Studio Code and iterm terminal.
 - `scripts/`: Containing common scripts to run while setting up the dotfiles.
-- `vim/`: Containing vimrc config file
 - `tmux/`: Containing tmux config files
 - `nvim/`: Containing nvim config files
 - `git/`: Containing git config file
-- `zsh/`: Containing Shell configuration files for Zsh.
+- `homebrew/`: Homebrew installed packages in my macbook.
+- `zshrc/`: Containing Shell configuration files for Zsh.
+    - `.aliases`: Aliases for common commands. Some are personalized to my machines specifically.
+    - `.exports`: Exports for packages path.
+    - `.functions`: Common useful functions.
+    - `.private`: This is a file you'll create locally to hold private information and shouldn't be uploaded to version control
+    - `.zshrc`: Shell configuration files for Bash and Zsh.
 - `bashrc/`: Containing Shell configuration files for Bash.
+    - `.bashrc`: Shell configuration files for Bash.
+    - `.bash_profile`: Setting system-wide environment variables
 
 ### Customizing Your Setup
 
@@ -79,5 +82,8 @@ Feel free to fork this repository and customize it for your setup. Pull requests
 
 This project is licensed under the BSD 2-Clause License - see the [LICENSE](LICENSE) file for details.
 
+## Acknowledgments
+
+- My dotfiles repo is inspired from [Corey M Schafer' dotfiles](https://github.com/CoreyMSchafer/dotfiles) and [Omer Hamerman](https://github.com/omerxx/dotfiles)
 - Thanks to all the open-source projects used in this setup.
 

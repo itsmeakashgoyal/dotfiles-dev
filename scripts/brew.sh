@@ -28,54 +28,8 @@ brew upgrade --cask
 brew cleanup
 
 # Define an array of packages to install using Homebrew.
-packages=(
-    "gcc"
-    "llvm"
-    "fzf"
-    "python"
-    "zsh"
-    "git"
-    "tree"
-    "pylint"
-    "black"
-    "node"
-    "openssh"
-    "ssh-copy-id"
-    "git"
-    "automake"
-    "bash"
-    "bash-completion"
-    "bat"
-    "bpytop"
-    "brew-cask-completion"
-    "brew-gem"
-    "btop"
-    "cmake"
-    "exa"
-    "htop"
-    "jq"
-    "lazygit"
-    "neovim"
-    "ripgrep"
-    "rust"
-    "shellcheck"
-    "stow"
-    "tmux"
-    "wget"
-    "zoxide"
-    "zsh-autosuggestions"
-    "zsh-syntax-highlighting"
-)
-
-# Loop over the array to install each application.
-for package in "${packages[@]}"; do
-    if brew list --formula | grep -q "^$package\$"; then
-        echo "$package is already installed. Skipping..."
-    else
-        echo "Installing $package..."
-        brew install "$package"
-    fi
-done
+# Fresh installation
+xargs brew install < homebrew/leaves.txt
 
 # Add the Homebrew zsh to allowed shells
 echo "Changing default shell to Homebrew zsh"
