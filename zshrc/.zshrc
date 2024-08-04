@@ -140,7 +140,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 zstyle ':fzf-tab:*' switch-group '<' '>'
 zstyle ':completion:*' list-max-items 20
 
-source <(fzf --zsh)
+source ~/.fzf.zsh
 eval "$(zoxide init --cmd cd zsh)"
 
 # Load dotfiles:

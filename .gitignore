@@ -14,7 +14,8 @@ Thumbs.db
 .Trashes
 
 # Private Information
-extras/*
+private/*
+bashrc/.private
 zshrc/.private
 zshrc/.zsh_history
 tmux/plugins/*
