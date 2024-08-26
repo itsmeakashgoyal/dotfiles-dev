@@ -1,10 +1,10 @@
 # Development Environment Setup
 
-This repository contains scripts and configuration files to set up a development environment for macOS. It's tailored for software development, focusing on a clean, minimal, and efficient setup.
+This repository contains scripts and configuration files to set up a development environment for linuxOS. It's tailored for software development, focusing on a clean, minimal, and efficient setup.
 
 ## Overview
 
-The setup includes automated scripts for installing essential software, configuring Bash and Zsh shells, and setting up Sublime Text and Visual Studio Code editors. This guide will help you replicate my development environment on your machine if you desire to do so.
+The setup includes automated scripts for installing essential software, configuring Bash and Zsh shells. This guide will help you replicate my development environment on your machine if you desire to do so.
 
 ## Important Note Before Installation
 
@@ -24,7 +24,7 @@ By using these scripts, you acknowledge and accept the risk of potential data lo
 
 ### Prerequisites
 
-- macOS (The scripts are tailored for macOS but can be easily configured for linux as well)
+- linuxOS (The scripts are tailored for linux)
 
 ### Installation
 
@@ -44,20 +44,11 @@ By using these scripts, you acknowledge and accept the risk of potential data lo
 This script will:
 
 - Create symlinks for dotfiles (`.bashrc`, `.zshrc`, etc.)
-- Run macOS-specific configurations
-- Install Homebrew packages and casks
-- Configure Sublime Text and Visual Studio Code
 
 ## Configuration Files
-
-
-
-- `settings/`: Directory containing editor settings and themes for Sublime Text, Visual Studio Code and iterm terminal.
 - `scripts/`: Containing common scripts to run while setting up the dotfiles.
 - `tmux/`: Containing tmux config files
-- `nvim/`: Containing nvim config files
 - `git/`: Containing git config file
-- `homebrew/`: Homebrew installed packages in my macbook.
 - `zshrc/`: Containing Shell configuration files for Zsh.
     - `.aliases`: Aliases for common commands. Some are personalized to my machines specifically.
     - `.exports`: Exports for packages path.
@@ -72,8 +63,6 @@ This script will:
 
 You're encouraged to modify the scripts and configuration files to suit your preferences. Here are some tips for customization:
 
-- **Sublime Text and VS Code**: Adjust settings in the `settings/` directory to change editor preferences and themes.
-
 ## Contributing
 
 Feel free to fork this repository and customize it for your setup. Pull requests for improvements and bug fixes are welcome, but as said above, I likely won't accept pull requests that simply add additional brew installations or change some settings unless they align with my personal preferences.
@@ -84,6 +73,6 @@ This project is licensed under the BSD 2-Clause License - see the [LICENSE](LICE
 
 ## Acknowledgments
 
-- My dotfiles repo is inspired from [Corey M Schafer' dotfiles](https://github.com/CoreyMSchafer/dotfiles) and [Omer Hamerman](https://github.com/omerxx/dotfiles)
+- My dotfiles repo is inspired from [Corey M Schafer' dotfiles](https://github.com/CoreyMSchafer/dotfiles), [Omer Hamerman](https://github.com/omerxx/dotfiles) and [Piotr Zaniewski](https://github.com/Piotr1215/dotfiles)
 - Thanks to all the open-source projects used in this setup.
 
