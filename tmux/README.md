@@ -12,3 +12,6 @@ source tmux.conf
 vi tmux.conf
 prefix+I
 ```
+
+## Acknowledgments
+- My tmux config is inspired from [Omer Hamerman](https://github.com/omerxx/dotfiles)

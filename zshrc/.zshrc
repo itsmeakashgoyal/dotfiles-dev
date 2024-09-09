@@ -84,6 +84,9 @@ source $ZSH/oh-my-zsh.sh
 source $ZSH/custom/plugins/fzf-tab/fzf-tab.plugin.zsh
 
 ZVM_INIT_MODE=sourcing
+
+export ZSHRCDIR="$HOME/dotfiles-dev/zshrc"
+
 compinit -d "${ZDOTDIR:-$HOME}/.zcompdump"
 
 # https://github.com/jeffreytse/zsh-vi-mode
@@ -160,13 +163,42 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 zstyle ':fzf-tab:*' switch-group '<' '>'
 zstyle ':completion:*' list-max-items 20
 
-source <(fzf --zsh)
-zvm_after_init_commands+=('source <(fzf --zsh)')
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
 eval "$(zoxide init --cmd cd zsh)"
 
-# Load dotfiles:
-for file in ~/.{aliases,exports,functions,private}; do
-    [ -r "$file" ] && [ -f "$file" ] && source "$file";
-done;
-unset file;
+export NVM_DIR="${HOME}/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+  # . /etc/profile.d/nix.sh
+fi
+# End Nix
+
+# ------------------------------------------------------------------
+## Antidote setup to load zsh plugins
+# ------------------------------------------------------------------
+export ANTIDOTE_DIR="${HOME}/.antidote"
+# Ensure the .zsh_plugins.txt file exists so you can add plugins.
+[[ -f ${zsh_plugins}.txt ]] || touch ${zsh_plugins}.txt
+
+# Lazy-load antidote from its functions directory.
+autoload -Uz antidote
+
+# source antidote
+source ${ANTIDOTE_DIR}/antidote.zsh
+
+# Compile bundles and source zshrc
+sz() {
+    sh ${ZSHRCDIR}/bundle_compile
+    exec zsh
+    echo 'Sourced zshrc'
+}
+
+alias update-antidote='antidote bundle < ${ZSHRCDIR}/zsh_plugins.txt >| ${ZSHRCDIR}/zsh_plugins.zsh'
+
+# Source compiled antidote bundles and configs
+[ -f ${ZSHRCDIR}/zsh_plugins.zsh ] && source ${ZSHRCDIR}/zsh_plugins.zsh
 

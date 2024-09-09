@@ -1,34 +1,10 @@
-#!/usr/bin/env bash
-
-# Make vim the default editor.
-export EDITOR=/opt/homebrew/bin/nvim
-
-# Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
-export PYTHONIOENCODING='UTF-8';
-
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init --path)"
-    eval "$(pyenv init -)"
-fi
+# ------------------------------------------------------------------------------
+# General Exports
+# ------------------------------------------------------------------------------
 
 # Prefer US English and use UTF-8.
 export LANG='en_US.UTF-8';
 export LC_ALL='en_US.UTF-8';
-
-# export llvm path for clang++
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
-
-export FZF_DEFAULT_OPTS="--height=50% --min-height=15 --reverse"
-export FZF_DEFAULT_COMMAND='rg --files'
-
-export FZF_CTRL_T_OPTS="--height 60% \
-    --border sharp \
-    --layout reverse \
-    --prompt '∷ ' \
-    --pointer ▶ \
-    --marker ⇒"
 
 # colorful man pages
 export LESS_TERMCAP_mb=$'\e[1;31m'
@@ -40,9 +16,13 @@ export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;32m'
 
 ## export PATH
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/local:/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 export PATH=$PATH:~/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
-export PATH=$PATH:/usr/local/opt/ruby/bin
+export PATH=$PATH:/usr/local/bin/clang-15:/usr/local/compilers/clang15/bin
+export PATH=$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin
+export PATH=$PATH:/opt/nvim-linux64/bin
+export PATH=$PATH:$HOME/.fzf/bin
+export PATH=$PATH:/usr/local/go/bin
 
 # ~/.config/tmux/plugins
 export PATH=$PATH:$HOME/.config/tmux/plugins/t-smart-tmux-session-manager/bin

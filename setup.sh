@@ -1,17 +1,19 @@
 #!/usr/bin/env zsh
 ############################
-# This script creates symlinks from the home directory to any desired dotfiles in $HOME/dotfiles
-# And also installs MacOS Software
-# And also installs Homebrew Packages and Casks (Apps)
-# And also sets up Sublime Text
+# This script creates symlinks from the home directory to any desired dotfiles in $HOME/dotfiles-dev
 ############################
 
 # dotfiles directory
 dotfiledir="${HOME}/dotfiles-dev"
 
+# Run the setup script for the current OS
+sh ${dotfiledir}/scripts/_linuxOS.sh
+
+echo "Initiate the symlinking process..."
 # list of files/folders to symlink in ${homedir}
-folders=(zshrc)
-files=()
+folders=("zshrc" "tmux" "nvim")
+files=(".zshrc" ".zprofile")
+config_folders=("tmux" "nvim")
 
 # change to the dotfiles directory
 echo "Changing to the ${dotfiledir} directory"
@@ -22,14 +24,23 @@ for folder in "${folders[@]}"; do
     echo "Processing folder: ${folder}"
     for file in "${dotfiledir}/${folder}"/*; do
         filename=$(basename "${file}")
-        echo "Creating symlink to ${filename} in home directory."
-        ln -sf "${file}" "${HOME}/.${filename}"
+
+        # Check if the file matches any file in the list
+        if [[ " ${files[@]} " =~ " ${filename} " ]]; then
+            echo "Creating symlink to ${filename} in home directory."
+            # Create symbolic link in the home directory
+            ln -sf "${file}" "${HOME}/.${filename}"
+        else
+            echo "Skipping ${filename}, not in the list."
+        fi
     done
 done
 
-# Install diff-so-fancy-install.sh
-./scripts/diff-so-fancy-install.sh
-
-./scripts/linuxOS.sh
+for folder in "${config_folders[@]}"; do
+    echo "Processing folder: ${folder}"
+    echo "Creating symlink to ${folder} in ~/.config directory."
+    # Create symbolic link in the home directory
+    ln -sf "${folder}" "${HOME}/.config/${folder}"
+done
 
 echo "Installation Complete!"

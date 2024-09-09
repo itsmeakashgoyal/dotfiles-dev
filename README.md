@@ -10,11 +10,11 @@ The setup includes automated scripts for installing essential software, configur
 
 **WARNING:** The configurations and scripts in this repository are **HIGHLY PERSONALIZED** to my own preferences and workflows. If you decide to use them, please be aware that they will **MODIFY** your current system, potentially making some changes that are **IRREVERSIBLE** without a fresh installation of your operating system.
 
-Furthermore, while I strive to backup files wherever possible, I cannot guarantee that all files are backed up. The backup mechanism is designed to backup SOME files **ONCE**. If the script is run more than once, the initial backups will be **OVERWRITTEN**, potentially resulting in loss of data. While I could implement timestamped backups to preserve multiple versions, this setup is optimized for my personal use, and a single backup suffices for me.
+Furthermore, while I strive to backup files wherever possible, I cannot guarantee that all files are backed up.
 
 If you would like a development environment similar to mine, I highly encourage you to fork this repository and make your own personalized changes to these scripts instead of running them exactly as I have them written for myself.
 
-I likely won't accept pull requests unless they align closely with my personal preferences and the way I use my development environment. But if there are some obvious errors in my scripts then corrections would be welcome!
+Any kind of corrections would be welcome!. I feel free to accept pull requests if there are any errors in my scripts.
 
 If you choose to run these scripts, please do so with **EXTREME CAUTION**. It's recommended to review the scripts and understand the changes they will make to your system before proceeding.
 
@@ -24,7 +24,7 @@ By using these scripts, you acknowledge and accept the risk of potential data lo
 
 ### Prerequisites
 
-- linuxOS (The scripts are tailored for linux)
+- linuxOS (The scripts are tailored for Ubuntu > v22)
 
 ### Installation
 
@@ -36,28 +36,36 @@ By using these scripts, you acknowledge and accept the risk of potential data lo
    ```sh
    cd ~/dotfiles-dev
    ```
-3. Run the installation script:
+3. Checkout **ubuntu-setup** branch as master branch is specific to macOS setup.
+   ```sh
+   git checkout ubuntu-setup
+   ```
+4. Run the installation script:
    ```sh
    ./setup.sh
    ```
+5. Update the nvim git submodule
+   - If it's the first time you check-out a repo you need to use --init first 
+    ```sh
+    git submodule update --init --recursive
+    ```
+   - If its already checkout than, update the submodule
+   ```sh
+   git submodule update --recursive --remote
+   ```
+
 
 This script will:
 
-- Create symlinks for dotfiles (`.bashrc`, `.zshrc`, etc.)
+- Create symlinks for dotfiles (`.gitconfig`, `.zshrc`, etc.)
 
 ## Configuration Files
 - `scripts/`: Containing common scripts to run while setting up the dotfiles.
 - `tmux/`: Containing tmux config files
 - `git/`: Containing git config file
 - `zshrc/`: Containing Shell configuration files for Zsh.
-    - `.aliases`: Aliases for common commands. Some are personalized to my machines specifically.
-    - `.exports`: Exports for packages path.
-    - `.functions`: Common useful functions.
-    - `.private`: This is a file you'll create locally to hold private information and shouldn't be uploaded to version control
-    - `.zshrc`: Shell configuration files for Bash and Zsh.
 - `bashrc/`: Containing Shell configuration files for Bash.
-    - `.bashrc`: Shell configuration files for Bash.
-    - `.bash_profile`: Setting system-wide environment variables
+- `nvim/`: Another git submodule for my nvim config.
 
 ### Customizing Your Setup
 
@@ -65,14 +73,12 @@ You're encouraged to modify the scripts and configuration files to suit your pre
 
 ## Contributing
 
-Feel free to fork this repository and customize it for your setup. Pull requests for improvements and bug fixes are welcome, but as said above, I likely won't accept pull requests that simply add additional brew installations or change some settings unless they align with my personal preferences.
+Feel free to fork this repository and customize it for your setup. Pull requests for improvements and bug fixes are welcome.
 
 ## License
 
 This project is licensed under the BSD 2-Clause License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
-
-- My dotfiles repo is inspired from [Corey M Schafer' dotfiles](https://github.com/CoreyMSchafer/dotfiles), [Omer Hamerman](https://github.com/omerxx/dotfiles) and [Piotr Zaniewski](https://github.com/Piotr1215/dotfiles)
 - Thanks to all the open-source projects used in this setup.
 

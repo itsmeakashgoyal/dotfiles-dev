@@ -1,8 +1,4 @@
-
-# Set PATHS
-if [ -x "/opt/homebrew/bin/brew" ]; then
-    # For Apple Silicon Macs
-    export PATH="/opt/homebrew/bin:$PATH"
+# Load .zshrc if available
+if [ -f ~/.zshrc ]; then
+    source ~/.zshrc
 fi
-
-eval "$(/opt/homebrew/bin/brew shellenv)"
