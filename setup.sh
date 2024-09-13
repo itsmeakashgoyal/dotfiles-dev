@@ -1,46 +1,78 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 ############################
 # This script creates symlinks from the home directory to any desired dotfiles in $HOME/dotfiles-dev
 ############################
 
-# dotfiles directory
-dotfiledir="${HOME}/dotfiles-dev"
+# Enable strict mode for better error handling
+set -o pipefail
+
+# Function to log messages
+log() {
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1"
+}
+
+# Define variables
+DOTFILES_DIR="${HOME}/dotfiles-dev"
+CONFIG_DIR="${HOME}/.config"
+
+# List of folders to process
+FOLDERS=("zshrc" "tmux" "nvim")
+# List of files to symlink directly in home directory
+FILES=(".zshrc" ".zprofile")
+# List of folders to symlink in .config directory
+CONFIG_FOLDERS=("tmux" "nvim")
 
 # Run the setup script for the current OS
-sh ${dotfiledir}/scripts/_linuxOS.sh
+log "Running OS-specific setup script..."
+if [ -f "${DOTFILES_DIR}/scripts/_linuxOS.sh" ]; then
+    sh "${DOTFILES_DIR}/scripts/_linuxOS.sh"
+else
+    log "Warning: OS-specific setup script not found."
+fi
 
-echo "Initiate the symlinking process..."
-# list of files/folders to symlink in ${homedir}
-folders=("zshrc" "tmux" "nvim")
-files=(".zshrc" ".zprofile")
-config_folders=("tmux" "nvim")
+log "Initiating the symlinking process..."
 
-# change to the dotfiles directory
-echo "Changing to the ${dotfiledir} directory"
-cd "${dotfiledir}" || exit
+# Change to the dotfiles directory
+log "Changing to the ${DOTFILES_DIR} directory"
+cd "${DOTFILES_DIR}" || { log "Failed to change directory to ${DOTFILES_DIR}"; exit 1; }
 
-# Create symlinks for each file within the specified folders (will overwrite old dotfiles)
-for folder in "${folders[@]}"; do
-    echo "Processing folder: ${folder}"
-    for file in "${dotfiledir}/${folder}"/*; do
+# Create symlinks for each file within the specified folders
+for folder in "${FOLDERS[@]}"; do
+    log "Processing folder: ${folder}"
+    for file in "${DOTFILES_DIR}/${folder}"/*; do
         filename=$(basename "${file}")
 
         # Check if the file matches any file in the list
-        if [[ " ${files[@]} " =~ " ${filename} " ]]; then
-            echo "Creating symlink to ${filename} in home directory."
-            # Create symbolic link in the home directory
+        if [[ " ${FILES[@]} " =~ " ${filename} " ]]; then
+            log "Creating symlink to ${filename} in home directory."
             ln -sf "${file}" "${HOME}/.${filename}"
         else
-            echo "Skipping ${filename}, not in the list."
+            log "Skipping ${filename}, not in the list of files to symlink."
         fi
     done
 done
 
-for folder in "${config_folders[@]}"; do
-    echo "Processing folder: ${folder}"
-    echo "Creating symlink to ${folder} in ~/.config directory."
-    # Create symbolic link in the home directory
-    ln -sf "${folder}" "${HOME}/.config/${folder}"
+# Create symlinks for config folders
+for folder in "${CONFIG_FOLDERS[@]}"; do
+    log "Processing config folder: ${folder}"
+    target_dir="${CONFIG_DIR}/${folder}"
+    
+    # Create .config directory if it doesn't exist
+    mkdir -p "${CONFIG_DIR}"
+    
+    # Remove existing symlink or directory
+    if [ -e "${target_dir}" ]; then
+        if [ -L "${target_dir}" ]; then
+            log "Removing existing symlink: ${target_dir}"
+            rm "${target_dir}"
+        else
+            log "Removing existing directory: ${target_dir}"
+            rm -rf "${target_dir}"
+        fi
+    fi
+    
+    log "Creating symlink to ${folder} in ~/.config directory."
+    ln -sf "${DOTFILES_DIR}/${folder}" "${target_dir}"
 done
 
-echo "Installation Complete!"
+log "Installation Complete!"
